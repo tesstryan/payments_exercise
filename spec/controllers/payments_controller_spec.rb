@@ -10,8 +10,14 @@ RSpec.describe PaymentsController, type: :controller do
     end
   end
 
-  describe '#show' do
+  describe '#create' do
+    it ' creates payment and responds with a 201' do
+      post :create, { amount: 10.0, loan_id: loan.id }
+      expect(response).to have_http_status(:created)
+    end
+  end
 
+  describe '#show' do
     let(:payment) { Payment.create!(loan_id: loan.id, amount: 100.0)}
 
     it 'responds with a 200' do
@@ -25,6 +31,6 @@ RSpec.describe PaymentsController, type: :controller do
         expect(response).to have_http_status(:not_found)
       end
     end
-    
   end
+
 end
