@@ -1,1 +1,1 @@
-Loan.create!(funded_amount: 100.0)
+10.times do { Loan.create!(funded_amount: rand(10-1000).to_f) }
