@@ -11,7 +11,7 @@ RSpec.describe PaymentsController, type: :controller do
   end
 
   describe '#create' do
-    it ' creates payment and responds with a 201' do
+    it 'creates payment and responds with a 201' do
       post :create, { amount: 10.0, loan_id: loan.id }
       expect(response).to have_http_status(:created)
     end
