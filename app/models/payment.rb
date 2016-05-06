@@ -2,7 +2,7 @@ class Payment < ActiveRecord::Base
 
   belongs_to :loan
 
-  validates :amount, presence: true
+  validates :amount, presence: true, numericality: { greater_than: 0 }
   validates :loan_id, presence: true
 
   validate :check_remaining_balance, :if => lambda { |p| p.amount? && p.loan_id? }
