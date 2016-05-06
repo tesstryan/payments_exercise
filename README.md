@@ -1,1 +1,1 @@
-# Payments Exercise
+api development practice exercise
