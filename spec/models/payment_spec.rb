@@ -15,4 +15,10 @@ RSpec.describe Payment, type: :model do
     expect(payment.errors[:loan_id]).to include("can't be blank")
   end
 
+  it "is invalid if the amount exceeds outstanding balance" do
+    payment = Payment.new(amount: 200.0, loan_id: loan.id )
+    payment.valid?
+    expect(payment.errors[:amount]).to include("exceeds outstanding balance")
+  end
+
 end

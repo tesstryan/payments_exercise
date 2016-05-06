@@ -1,5 +1,7 @@
 class PaymentsController < ApplicationController
 
+  protect_from_forgery :except => [:create]
+
   rescue_from ActiveRecord::RecordNotFound do |exception|
     render json: 'not_found', status: :not_found
   end
@@ -9,8 +11,12 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    @payment = Payment.create!(payment_params)
-    render status: :created, json: @payment
+    @payment = Payment.new(payment_params)
+    if @payment.save
+      render status: :created, json: @payment
+    else
+      render status: :unprocessable_entity, json: { :errors => @payment.errors.full_messages }
+    end
   end
 
   def show

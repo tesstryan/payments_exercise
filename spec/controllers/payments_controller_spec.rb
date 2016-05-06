@@ -15,6 +15,11 @@ RSpec.describe PaymentsController, type: :controller do
       post :create, { amount: 10.0, loan_id: loan.id }
       expect(response).to have_http_status(:created)
     end
+
+    it 'does not create a payment that is not valid' do
+      post :create, { loan_id: loan.id }
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
   end
 
   describe '#show' do
